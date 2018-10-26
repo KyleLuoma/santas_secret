@@ -7,26 +7,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kyleluoma.application.model.UserGiftPoolAssociation;
-import com.kyleluoma.application.repository.UserGiftPoolAssociationRepository;
+import com.kyleluoma.application.model.UserGiftPoolRelationship;
+import com.kyleluoma.application.repository.UserGiftPoolRelationshipRepository;
 
 @Controller
-@RequestMapping(path="/user_gift_pool_association")
+@RequestMapping(path="/user_gift_pool_relationship")
 public class GiftPoolController {
     @Autowired
-    private UserGiftPoolAssociationRepository userGiftPoolAssociationRepository;
+    private UserGiftPoolRelationshipRepository userGiftPoolRelationshipRepository;
 
     @GetMapping(path="/add")
-    public @ResponseBody String addNewUserGiftPoolAssociation (@RequestParam Integer userId,
+    public @ResponseBody String addNewUserGiftPoolRelationship (@RequestParam Integer userId,
                                                                @RequestParam Integer giftPoolId) {
-        User newUserGiftPoolAssociation = new UserGiftPoolAssociation();
-        newUserGiftPoolAssociation.setUserId(userId);
-        newUserGiftPoolAssociation.setGiftPoolId(giftPoolId);
+        User newUserGiftPoolRelationship = new UserGiftPoolRelationship();
+        newUserGiftPoolRelationship.setUserId(userId);
+        newUserGiftPoolRelationship.setGiftPoolId(giftPoolId);
         return "Saved";
     }
 
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<UserGiftPoolAssociation> getAllUserGiftPoolAssociations() {
-        return userGiftPoolAssociationRepository.findAll();
+    public @ResponseBody Iterable<UserGiftPoolRelationship> getAllUserGiftPoolRelationships() {
+        return userGiftPoolRelationshipRepository.findAll();
     }
 }
