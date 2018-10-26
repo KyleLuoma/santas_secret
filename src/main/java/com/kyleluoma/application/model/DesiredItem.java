@@ -47,6 +47,10 @@ public class DesiredItem {
         return priority;
     }
     
+    public void setWishListID(Integer wishListID) {
+        this.wishListID = wishListID;
+    }
+    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -63,7 +67,7 @@ public class DesiredItem {
         this.purchased = purchased;
     }
     
-    public void setPriorit(Enum priority) {
+    public void setPriority(Enum priority) {
         this.priority = priority;
     }
 }
