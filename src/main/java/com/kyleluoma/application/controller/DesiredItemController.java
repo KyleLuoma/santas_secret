@@ -12,7 +12,7 @@ import com.kyleluoma.application.repository.DesiredItemRepository;
 
 @Controller
 @RequestMapping(path="/desired_item")
-public class UserController {
+public class DesiredItemController {
     @Autowired
     private DesiredItemRepository desiredItemRepository;
 
@@ -31,8 +31,8 @@ public class UserController {
         newDesiredItem.setURL(URL);
         newDesiredItem.setPurchased(purchased);
         newDesiredItem.setPurchasedByUserId(purchasedByUserId);
-        newDesiredItem.setPriorit(priority);
-        DesiredItemRepository.save(newDesiredItem);
+        newDesiredItem.setPriority(priority);
+        desiredItemRepository.save(newDesiredItem);
         return "Saved";
     }
 

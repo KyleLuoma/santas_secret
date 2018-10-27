@@ -4,6 +4,6 @@ import com.kyleluoma.application.model.WishList;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface WishListRepository extends CrudRepository<User, Integer> {
+public interface WishListRepository extends CrudRepository<WishList, Integer> {
 
 }

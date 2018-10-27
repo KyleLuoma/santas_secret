@@ -4,6 +4,6 @@ import com.kyleluoma.application.model.UserGiftPoolRelationship;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserGiftPoolRelationshipRepository extends CrudRepository<User, Integer> {
+public interface UserGiftPoolRelationshipRepository extends CrudRepository<UserGiftPoolRelationship, Integer> {
 
 }

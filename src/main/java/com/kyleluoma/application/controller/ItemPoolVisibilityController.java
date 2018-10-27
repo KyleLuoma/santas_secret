@@ -20,7 +20,7 @@ public class ItemPoolVisibilityController {
     public @ResponseBody String addNewItemPoolVisibility (@RequestParam Integer itemId,
                                                           @RequestParam Integer poolId,
                                                           @RequestParam boolean visible) {
-        User newItemPoolVisibility = new ItemPoolVisibility();
+        ItemPoolVisibility newItemPoolVisibility = new ItemPoolVisibility();
         newItemPoolVisibility.setItemId(itemId);
         newItemPoolVisibility.setPoolId(poolId);
         newItemPoolVisibility.setVisible(visible);

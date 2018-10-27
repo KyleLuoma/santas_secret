@@ -14,9 +14,11 @@ public class WishList {
     private Integer userId;
     private String title;
     private String description;
+
+    public Integer getId() { return Id;}
     
-    public Integer getId() {
-        return Id;
+    public Integer getUserId() {
+        return userId;
     }
     
     public String getTitle() {
@@ -25,6 +27,10 @@ public class WishList {
     
     public String getDescription() {
         return description;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
     
     public void setTitle(String title) {

@@ -66,6 +66,10 @@ public class DesiredItem {
     public void setPurchased(Boolean purchased) {
         this.purchased = purchased;
     }
+
+    public void setPurchasedByUserId(Integer purchasedByUserId ) {
+        this.purchasedByUserId = purchasedByUserId;
+    }
     
     public void setPriority(Enum priority) {
         this.priority = priority;

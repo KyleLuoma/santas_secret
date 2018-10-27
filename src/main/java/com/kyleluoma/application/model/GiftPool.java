@@ -1,11 +1,10 @@
 package com.kyleluoma.application.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import com.kyleluoma.application.model.ItemPoolVisibility;
+
+import java.util.List;
 
 @Entity
 public class GiftPool {
@@ -15,6 +14,8 @@ public class GiftPool {
  
     private String poolTitle;
     private String poolDescription;
+
+    @OneToMany
     private List<DesiredItem> desiredItems;
     
     public Integer getId() {
@@ -29,7 +30,7 @@ public class GiftPool {
         return poolDescription;
     }
     
-    public String getDesiredItems() {
+    public List<DesiredItem> getDesiredItems() {
         return desiredItems;
     }
     
@@ -41,7 +42,7 @@ public class GiftPool {
         this.poolDescription = poolDescription;
     }
     
-    public void setDesiredItems(List<DesiredItem> desiredItems) {
-        this.desiredItems = desiredItems.clone();
-    }
+    /*public void setDesiredItems(List<DesiredItem> desiredItems) {
+        this.desiredItems = desiredItems;
+    }*/
 }

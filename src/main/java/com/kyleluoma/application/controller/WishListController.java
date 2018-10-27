@@ -20,7 +20,7 @@ public class WishListController {
     public @ResponseBody String addNewWishList (@RequestParam Integer userId,
                                                 @RequestParam String title,
                                                 @RequestParam String description) {
-        User newWishList = new WishList();
+        WishList newWishList = new WishList();
         newWishList.setUserId(userId);
         newWishList.setTitle(title);
         newWishList.setDescription(description);

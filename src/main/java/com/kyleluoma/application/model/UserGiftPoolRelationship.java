@@ -37,7 +37,7 @@ public class UserGiftPoolRelationship {
         this.userId = userId;
     }
     
-    public void set giftPoolId(Integer giftPoolId) {
+    public void setGiftPoolId(Integer giftPoolId) {
         this.giftPoolId = giftPoolId;
     }
 }

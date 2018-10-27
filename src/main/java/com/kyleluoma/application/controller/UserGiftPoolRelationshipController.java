@@ -12,14 +12,14 @@ import com.kyleluoma.application.repository.UserGiftPoolRelationshipRepository;
 
 @Controller
 @RequestMapping(path="/user_gift_pool_relationship")
-public class GiftPoolController {
+public class UserGiftPoolRelationshipController {
     @Autowired
     private UserGiftPoolRelationshipRepository userGiftPoolRelationshipRepository;
 
     @GetMapping(path="/add")
     public @ResponseBody String addNewUserGiftPoolRelationship (@RequestParam Integer userId,
-                                                               @RequestParam Integer giftPoolId) {
-        User newUserGiftPoolRelationship = new UserGiftPoolRelationship();
+                                                                @RequestParam Integer giftPoolId) {
+        UserGiftPoolRelationship newUserGiftPoolRelationship = new UserGiftPoolRelationship();
         newUserGiftPoolRelationship.setUserId(userId);
         newUserGiftPoolRelationship.setGiftPoolId(giftPoolId);
         return "Saved";
