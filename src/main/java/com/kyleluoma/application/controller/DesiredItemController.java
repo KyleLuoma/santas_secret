@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kyleluoma.application.model.DesiredItem;
 import com.kyleluoma.application.repository.DesiredItemRepository;
 
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping(path="/desired_item")
 public class DesiredItemController {
@@ -39,5 +41,17 @@ public class DesiredItemController {
     @GetMapping(path="/all")
     public @ResponseBody Iterable<DesiredItem> getAllDesiredItems() {
         return desiredItemRepository.findAll();
+    }
+
+    @GetMapping(path="/wish_list_items")
+    public @ResponseBody Iterable<DesiredItem> getWishListDesiredItems(Integer wishListId) {
+        Iterable<DesiredItem> allItems = desiredItemRepository.findAll();
+        ArrayList<DesiredItem> wishListItems = new ArrayList<>();
+        for(DesiredItem item: allItems) {
+            if(item.getWishListID() == wishListId) {
+                wishListItems.add(item);
+            }
+        }
+        return wishListItems;
     }
 }

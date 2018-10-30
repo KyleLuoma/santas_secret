@@ -22,6 +22,10 @@ public class DesiredItem {
     public Integer getId() {
         return id;
     }
+
+    public Integer getWishListID() {
+        return wishListID;
+    }
     
     public String getTitle() {
         return title;
