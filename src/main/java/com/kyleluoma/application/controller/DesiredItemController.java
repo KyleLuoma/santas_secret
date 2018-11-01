@@ -24,13 +24,15 @@ public class DesiredItemController {
     private ItemPoolVisibilityRepository itemPoolVisibilityRepository;
 
     @GetMapping(path="/add")
-    public @ResponseBody String addNewDesiredItem (@RequestParam String title,
+    public @ResponseBody String addNewDesiredItem (@RequestParam Integer wishListID,
+                                                   @RequestParam String title,
                                                    @RequestParam String description,
                                                    @RequestParam String URL,
                                                    @RequestParam Boolean purchased,
                                                    @RequestParam Integer purchasedByUserId,
                                                    @RequestParam Enum priority) {
         DesiredItem newDesiredItem = new DesiredItem();
+        newDesiredItem.setWishListID(wishListID);
         newDesiredItem.setTitle(title);
         newDesiredItem.setDescription(description);
         newDesiredItem.setURL(URL);
