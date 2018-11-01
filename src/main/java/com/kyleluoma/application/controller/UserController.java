@@ -36,4 +36,37 @@ public class UserController {
     public @ResponseBody Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
+    
+    @GetMapping(path="/by_id")
+    public @ResponseBody User getUserById(Integer userId) {
+        return userRepository.findById(userId);
+    }
+    
+    @GetMapping(path="/by_email")
+    public @ResponseBody User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+    
+    @GetMapping(path="/by_user_name")
+    public @ResponseBody User getUserByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+    
+    @GetMapping(path="/by_first_and_last_name")
+    public @ResponseBody Iterable<User> getUsersByFirstAndLastName(String firstName, String lastName) {
+        return userRepository.findByFirstNameAndLastName(firstName, lastName);
+    }
+    
+    @GetMapping(path="/by_first_name")
+    public @ResponseBody Iterable<User> getUsersByFirstName(String firstName) {
+        return userRepository.findByFirstName(firstName);
+    }
+    
+    @GetMapping(path="/by_last_name")
+    public @ResponseBody Iterable<User> getUserByLastName(String lastName) {
+        return userRepository.findByLastName(lastName);
+    }
 }
+    
+    
+    
