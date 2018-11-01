@@ -31,4 +31,14 @@ public class WishListController {
     public @ResponseBody Iterable<WishList> getAllWishLists() {
         return wishListRepository.findAll();
     }
+    
+    @GetMapping(path="/by_user_id")
+    public @ResponseBody WishList getWishListByUserId(Integer userId) {
+        return wishListRepository.findByUserId(userId);
+    }
+    
+    @GetMapping(path="/by_title")
+    public @ResponseBody Iterable<Wishlist> getWishListsByTitle(String title) {
+        return wishListRepository.findByTitle(title);
+    }    
 }
