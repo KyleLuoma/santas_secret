@@ -24,6 +24,7 @@ public class WishListController {
         newWishList.setUserId(userId);
         newWishList.setTitle(title);
         newWishList.setDescription(description);
+        wishListRepository.save(newWishList);
         return "Saved";
     }
 
@@ -38,7 +39,7 @@ public class WishListController {
     }
     
     @GetMapping(path="/by_title")
-    public @ResponseBody Iterable<Wishlist> getWishListsByTitle(String title) {
+    public @ResponseBody Iterable<WishList> getWishListsByTitle(String title) {
         return wishListRepository.findByTitle(title);
     }    
 }

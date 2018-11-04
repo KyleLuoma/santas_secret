@@ -22,6 +22,7 @@ public class UserGiftPoolRelationshipController {
         UserGiftPoolRelationship newUserGiftPoolRelationship = new UserGiftPoolRelationship();
         newUserGiftPoolRelationship.setUserId(userId);
         newUserGiftPoolRelationship.setGiftPoolId(giftPoolId);
+        userGiftPoolRelationshipRepository.save(newUserGiftPoolRelationship);
         return "Saved";
     }
 

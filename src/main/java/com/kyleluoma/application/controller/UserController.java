@@ -39,7 +39,7 @@ public class UserController {
     
     @GetMapping(path="/by_id")
     public @ResponseBody User getUserById(Integer userId) {
-        return userRepository.findById(userId);
+        return userRepository.findById(userId).get();
     }
     
     @GetMapping(path="/by_email")

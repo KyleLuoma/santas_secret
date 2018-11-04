@@ -24,6 +24,7 @@ public class ItemPoolVisibilityController {
         newItemPoolVisibility.setItemId(itemId);
         newItemPoolVisibility.setPoolId(poolId);
         newItemPoolVisibility.setVisible(visible);
+        itemPoolVisibilityRepository.save(newItemPoolVisibility);
         return "Saved";
     }
 

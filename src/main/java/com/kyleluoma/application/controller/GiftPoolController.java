@@ -2,6 +2,7 @@ package com.kyleluoma.application.controller;
 
 import com.kyleluoma.application.model.ItemPoolVisibility;
 import com.kyleluoma.application.model.UserGiftPoolRelationship;
+import com.kyleluoma.application.repository.ItemPoolVisibilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class GiftPoolController {
         GiftPool newGiftPool = new GiftPool();
         newGiftPool.setPoolTitle(poolTitle);
         newGiftPool.setPoolDescription(poolDescription);
+        giftPoolRepository.save(newGiftPool);
         return "Saved";
     }
 
