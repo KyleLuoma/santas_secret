@@ -30,4 +30,24 @@ public class UserGiftPoolRelationshipController {
     public @ResponseBody Iterable<UserGiftPoolRelationship> getAllUserGiftPoolRelationships() {
         return userGiftPoolRelationshipRepository.findAll();
     }
+    
+    @GetMapping(path="/by_user_id")
+    public @ResponseBody Iterable<UserGiftPoolRelationship> getByUserId(Integer userId) {
+        return userGiftPoolRelationshipRepository.findByUserId(userId);
+    }
+    
+    @GetMapping(path="/by_gift_pool_id")
+    public @ResponseBody Iterable<UserGiftPoolRelationship> getByGiftPoolId(Integer giftPoolId) {
+        return userGiftPoolRelationshipRepository.findByGiftPoolId(giftPoolId);
+    }
+    
+    @GetMapping(path="/by_user_id_and_gift_pool_id")
+    public @ResponseBody Iterable<UserGiftPoolRelationship> getByUserIdAndGiftPoolId(Integer userId, Integer giftPoolId) {
+        return userGiftPoolRelationshipRepository.findByUserIdAndGiftPoolId(userId, giftPoolId);
+    }
+    
+    @GetMapping(path="/by_user_id_or_gift_pool_id")
+    public @ResponseBody Iterable<UserGiftPoolRelationship> getByUserIdOrGiftPoolId(Integer userId, Integer giftPoolId) {
+        return userGiftPoolRelationshipRepository.findByUserIdOrGiftPoolId(userId, giftPoolId);
+    }
 }
