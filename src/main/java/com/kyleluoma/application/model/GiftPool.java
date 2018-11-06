@@ -14,9 +14,6 @@ public class GiftPool {
  
     private String poolTitle;
     private String poolDescription;
-
-    @OneToMany
-    private List<DesiredItem> desiredItems;
     
     public Integer getId() {
         return id;
@@ -30,10 +27,6 @@ public class GiftPool {
         return poolDescription;
     }
     
-    public List<DesiredItem> getDesiredItems() {
-        return desiredItems;
-    }
-    
     public void setPoolTitle(String poolTitle) {
         this.poolTitle = poolTitle;
     }
@@ -41,8 +34,4 @@ public class GiftPool {
     public void setPoolDescription(String poolDescription) {
         this.poolDescription = poolDescription;
     }
-    
-    /*public void setDesiredItems(List<DesiredItem> desiredItems) {
-        this.desiredItems = desiredItems;
-    }*/
 }
