@@ -32,4 +32,34 @@ public class ItemPoolVisibilityController {
     public @ResponseBody Iterable<ItemPoolVisibility> getAllItemPoolVisibility() {
         return itemPoolVisibilityRepository.findAll();
     }
+    
+    @GetMapping(path="/by_item_id")
+    public @ResponseBody Iterable<ItemPoolVisibility> getByItemId(Integer itemId) {
+        return itemPoolVisibilityRepository.findByItemId(itemId);
+    }
+    
+    @GetMapping(path="/by_pool_id")
+    public @ResponseBody Iterable<ItemPoolVisibility> getByPoolId(Integer poolId) {
+        return itemPoolVisibilityRepository.findByPoolId(poolId);
+    }
+    
+    @GetMapping(path="/by_pool_id_and_visible")
+    public @ResponseBody Iterable<ItemPoolVisibility> getByPoolIdAndVisible(Integer poolId, boolean visible) {
+        return itemPoolVisibilityRepository.findByPoolIdAndVisible(poolId, visible);
+    }
+    
+    @GetMapping(path="/by_item_id_and_visible")
+    public @ResponseBody Iterable<ItemPoolVisibility> getByItemIdAndVisible(Integer itemId, boolean visible) {
+        return itemPoolVisibilityRepository.findByItemIdAndVisible(itemId, visible);
+    }
+    
+    @GetMapping(path="/by_item_id_or_pool_id")
+    Public @ResponseBody Iterable<ItemPoolVisibility> getByItemIdOrPoolId(Integer itemId, Integer poolId) {
+        return itemPoolVisibilityRepository.findByItemIdOrPoolId(itemId, poolId);
+    }
+    
+    @GetMapping(path="/by_item_id_or_pool_id_and_visible")
+    Public @ResponseBody Iterable<ItemPoolVisibility> getByItemIdOrPoolIdAndVisible(Integer itemId, Integer poolId, boolean visible) {
+        return itemPoolVisibilityRepository.findByItemIdOrPoolIdAndVisible(itemId, poolId, visible);
+    }
 }
