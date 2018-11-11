@@ -1,6 +1,9 @@
-package com.kyleluoma.application.controller;
+/*package com.kyleluoma.application.controller;
 
-@Test
+import org.junit.Test;
+
+
 public class UserControllerTest {
 
 }
+*/

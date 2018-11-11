@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kyleluoma.application.model.ItemQuestion;
 import com.kyleluoma.application.repository.ItemQuestionRepository;
 
+import java.time.Instant;
+
 @Controller
 @RequestMapping(path="/item_question")
-public class UserController {
+public class ItemQuestionController {
     @Autowired
     private ItemQuestionRepository itemQuestionRepository;
 

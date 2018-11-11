@@ -54,12 +54,12 @@ public class ItemPoolVisibilityController {
     }
     
     @GetMapping(path="/by_item_id_or_pool_id")
-    Public @ResponseBody Iterable<ItemPoolVisibility> getByItemIdOrPoolId(Integer itemId, Integer poolId) {
+    public @ResponseBody Iterable<ItemPoolVisibility> getByItemIdOrPoolId(Integer itemId, Integer poolId) {
         return itemPoolVisibilityRepository.findByItemIdOrPoolId(itemId, poolId);
     }
     
     @GetMapping(path="/by_item_id_or_pool_id_and_visible")
-    Public @ResponseBody Iterable<ItemPoolVisibility> getByItemIdOrPoolIdAndVisible(Integer itemId, Integer poolId, boolean visible) {
+    public @ResponseBody Iterable<ItemPoolVisibility> getByItemIdOrPoolIdAndVisible(Integer itemId, Integer poolId, boolean visible) {
         return itemPoolVisibilityRepository.findByItemIdOrPoolIdAndVisible(itemId, poolId, visible);
     }
 }
