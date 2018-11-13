@@ -25,8 +25,8 @@ function retrieveUserPools(userId) {
                                 "  </tr>";
             }
             table_string = table_string + "\n</table>";
-            $("#dump") = JSON.stringify(json);
-            $("#gift_pool_table") = table_string;
+            $("#dump").html(JSON.stringify(json));
+            $("#gift_pool_table").html(table_string);
         },
         error: function() {
             console.log("Oops, something went wrong when trying to load gift pool data.");
