@@ -80,8 +80,12 @@ public class GiftPoolController {
     }
     
     @GetMapping(path="/user_pool_meta_data")
-    public @ResponseBody PoolMeta getUserPoolMetaData(Integer poolId, userId) {
-        private PoolMeta poolMeta = new PoolMeta(poolId, userId);
+    public @ResponseBody Iterable<PoolMeta> getUserPoolMetaData(Integer userId) {
+        private ArrayList<UserGiftPoolRelationship> userPools = userGiftPoolRelationshipRepository.findByUserId(userId);
+        private ArrayList<PoolMeta> poolMeta = new ArrayList<>();
+        for(pool : userPools) {
+            poolMeta.add(new PoolMeta(pool.poolId, userId));
+        }
         return poolMeta;
     }
         
