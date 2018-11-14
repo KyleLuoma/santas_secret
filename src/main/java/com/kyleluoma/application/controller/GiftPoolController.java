@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kyleluoma.application.model.GiftPool;
+import com.kyleluoma.application.model.ItemPoolVisibility;
 import com.kyleluoma.application.repository.GiftPoolRepository;
 import com.kyleluoma.application.repository.UserGiftPoolRelationshipRepository;
+import com.kyleluoma.application.repository.DesiredItemRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,9 @@ public class GiftPoolController {
     
     @Autowired
     private ItemPoolVisibilityRepository itemPoolVisibilityRepository;
+    
+    @Autowired
+    private DesiredItemRepository desiredItemRepository;
 
     @GetMapping(path="/add")
     public @ResponseBody String addNewGiftPool (@RequestParam String poolTitle,
@@ -58,20 +63,6 @@ public class GiftPoolController {
         }
         return giftPoolRepository.findAllById(poolNumbers);
     }
-
-    /*@GetMapping(path="/for_user")
-    public @ResponseBody Iterable<GiftPool> getUserGiftPools(
-            Integer userId,
-            UserGiftPoolRelationshipController ugprc) {
-        Iterable<UserGiftPoolRelationship> relationships = ugprc.getAllUserGiftPoolRelationships();
-        ArrayList<Integer> poolNumbers = new ArrayList<>();
-        for(UserGiftPoolRelationship relationship : relationships) {
-            if (relationship.getUserId() == userId) {
-                poolNumbers.add(relationship.getGiftPoolId());
-            }
-        }
-        return giftPoolRepository.findAllById(poolNumbers);
-    }*/
     
     /**
     * Retrieve all gift pools that a particular item is part of.
@@ -87,18 +78,56 @@ public class GiftPoolController {
         }
         return giftPoolRepository.findAllById(poolNumbers);
     }
-
-    /*@GetMapping(path="/for_item")
-    public @ResponseBody Iterable<GiftPool> getItemGiftPools(
-            Integer itemId,
-            ItemPoolVisibilityController ipvc) {
-        Iterable<ItemPoolVisibility> visibilities = ipvc.getAllItemPoolVisibility();
-        ArrayList<Integer> poolNumbers = new ArrayList<>();
-        for(ItemPoolVisibility visibility : visibilities) {
-            if(visibility.getItemId() == itemId && visibility.getVisible()) {
-                poolNumbers.add(visibility.getPoolId());
+    
+    @GetMapping(path="/user_pool_meta_data")
+    public @ResponseBody PoolMeta getUserPoolMetaData(Integer poolId, userId) {
+        private PoolMeta poolMeta = new PoolMeta(poolId, userId);
+        return poolMeta;
+    }
+        
+    private class PoolMeta(Integer poolIdIn, Integer userIdIn) {
+        private Integer poolId;
+        private Integer userId;
+        private Integer numUsers;
+        private Integer numItems;
+        private Integer numGiftsPurchased;
+        
+            public PoolMeta(Integer poolIdIn, Integer userIdIn) {
+                this.poolId = poolIdIn;
+                this.userId = userIdIn;
+                
+                //Find number of users in this gift pool.
+                this.numUsers = userGiftPoolRelationshipRepository.findByGiftPoolId(poolId).size();
+                
+                //Find all items owned by user userId and count them.
+                this.numItems = 0;             
+                private ArrayList<ItemPoolVisibility> itemsInPool = itemPoolVisibilityRepository.findByPoolId(poolId);
+                for(item : itemsInPool) {
+                    if (item.getUserId == userId) { numItems++; }
+                }
+                
+                //Find all gifts purchased by user in this pool and count them:
+                this.numGiftsPurchased = desiredItemRepository.findByPurchasedByUserId(userId).size();
             }
-        }
-        return giftPoolRepository.findAllById(poolNumbers);
-    }*/
+        
+            public Integer getPoolId() {
+                return this.poolId;
+            }
+        
+            public Integer getUserId() {
+                return this.userId;
+            }
+        
+            public Integer getNumUsers() {
+                return this.numUsers;
+            }
+        
+            public Integer getNumLists() {
+                return this.numLists;
+            }
+        
+            public Integer getNumGiftsPurchased() {
+                return this.getNumGiftsPurchased;
+            }
+    }
 }
