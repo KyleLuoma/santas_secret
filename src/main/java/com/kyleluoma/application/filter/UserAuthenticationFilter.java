@@ -20,8 +20,10 @@ import java.io.IOException;
         @WebInitParam(name = "userAuth", value = "test")
 })*/
 public class UserAuthenticationFilter implements Filter {
-    public void init(FilterConfig config) throws ServletException {
     
+    private final Integer INVALID_USER_ID = -1;
+    
+    public void init(FilterConfig config) throws ServletException {
     }
     
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -29,22 +31,17 @@ public class UserAuthenticationFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        System.out.println("This is the UserAuthenticationFilter saying hello world!");
-
         HttpSession httpSession = httpRequest.getSession(true);
-
+        
+        System.out.println("This is the UserAuthenticationFilter saying hello world!");
         System.out.println(httpSession.getId().toString());
 
-        if(httpSession.getAttribute("redirected") == null) {
-            httpSession.setAttribute("redirected", false);
-        }
-
-        if(!(boolean) httpSession.getAttribute("redirected")) {
-            httpSession.setAttribute("redirected", true);
+        //Check if userId attribute exists, or if it is flagged (-1) as invalid:
+        if(httpSession.getAttribute("userId") == null || httpSession.getAttribute("userId") == INVALID_USER_ID) {
+            httpSession.setAttribute("userId", -1);
             System.out.println("Redirecting to login page");
             httpResponse.sendRedirect("/login.html");
         }
-
         chain.doFilter(request, response);
     }
         
