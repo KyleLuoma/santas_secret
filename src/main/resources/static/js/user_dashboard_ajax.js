@@ -1,6 +1,6 @@
-$("#test").html();
+//$("#test").html();
 
-retrieveUserPools(1);
+//retrieveUserPools(1);
 
 /**
  * Populates element with gift_pool_table id with table generating HTML containing
@@ -19,11 +19,12 @@ function retrieveUserPools(userId) {
   var result = "";
   
   $.ajax({
-    url: "/echo/json/",
-    type: 'POST',
+    //url: "/echo/json/",
+      url: 'gift_pool/for_user',
+    type: 'GET',
     data: {
-      //userId: userId
-      json: jsonString
+      userId: userId
+      //json: jsonString
     },
     dataType: 'json',
     success: function(json) {
@@ -73,7 +74,7 @@ function populatePoolMetaData(poolIds) {
   $.ajax({
     //url: "/echo/json/",
     url: 'gift_pool/user_pool_meta_data',
-    type: 'POST',
+    type: 'GET',
     data: {
       userId: userId
       //json: metaString

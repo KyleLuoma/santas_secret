@@ -1,8 +1,7 @@
 package com.kyleluoma.application.controller;
 
-import com.kyleluoma.application.model.ItemPoolVisibility;
-import com.kyleluoma.application.model.UserGiftPoolRelationship;
-import com.kyleluoma.application.repository.ItemPoolVisibilityRepository;
+import com.kyleluoma.application.model.*;
+import com.kyleluoma.application.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kyleluoma.application.model.GiftPool;
 import com.kyleluoma.application.model.ItemPoolVisibility;
-import com.kyleluoma.application.repository.GiftPoolRepository;
-import com.kyleluoma.application.repository.UserGiftPoolRelationshipRepository;
-import com.kyleluoma.application.repository.DesiredItemRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +19,9 @@ import java.util.List;
 public class GiftPoolController {
     @Autowired
     private GiftPoolRepository giftPoolRepository;
+
+    @Autowired
+    private WishListRepository wishListRepository;
     
     @Autowired
     private UserGiftPoolRelationshipRepository userGiftPoolRelationshipRepository;
@@ -81,37 +79,48 @@ public class GiftPoolController {
     
     @GetMapping(path="/user_pool_meta_data")
     public @ResponseBody Iterable<PoolMeta> getUserPoolMetaData(Integer userId) {
-        private ArrayList<UserGiftPoolRelationship> userPools = userGiftPoolRelationshipRepository.findByUserId(userId);
-        private ArrayList<PoolMeta> poolMeta = new ArrayList<>();
-        for(pool : userPools) {
-            poolMeta.add(new PoolMeta(pool.poolId, userId));
+        Iterable<UserGiftPoolRelationship> userPools = userGiftPoolRelationshipRepository.findByUserId(userId);
+        ArrayList<PoolMeta> poolMeta = new ArrayList<>();
+        for(UserGiftPoolRelationship pool : userPools) {
+            poolMeta.add(new PoolMeta(pool.getGiftPoolId(), userId));
         }
         return poolMeta;
     }
         
-    private class PoolMeta(Integer poolIdIn, Integer userIdIn) {
-        private Integer poolId;
-        private Integer userId;
-        private Integer numUsers;
-        private Integer numItems;
-        private Integer numGiftsPurchased;
+    private class PoolMeta {
+        Integer poolId;
+        Integer userId;
+        Integer numUsers;
+        Integer numItems;
+        Integer numGiftsPurchased;
         
             public PoolMeta(Integer poolIdIn, Integer userIdIn) {
                 this.poolId = poolIdIn;
                 this.userId = userIdIn;
-                
+
                 //Find number of users in this gift pool.
-                this.numUsers = userGiftPoolRelationshipRepository.findByGiftPoolId(poolId).size();
-                
+                this.numUsers = (int) userGiftPoolRelationshipRepository
+                        .findByGiftPoolId(poolId)
+                        .spliterator()
+                        .getExactSizeIfKnown();
                 //Find all items owned by user userId and count them.
                 this.numItems = 0;             
-                private ArrayList<ItemPoolVisibility> itemsInPool = itemPoolVisibilityRepository.findByPoolId(poolId);
-                for(item : itemsInPool) {
-                    if (item.getUserId == userId) { numItems++; }
+                Iterable<ItemPoolVisibility> itemsInPool = itemPoolVisibilityRepository.findByPoolId(poolId);
+                WishList userWishList = wishListRepository.findByUserId(userId);
+                Iterable<DesiredItem> userItems = desiredItemRepository.findByWishListID(userWishList.getId());
+                for(DesiredItem item : userItems) {
+                    for(ItemPoolVisibility poolItem : itemsInPool) {
+                        if (item.getId() == poolItem.getItemId()) {
+                            numItems++;
+                        }
+                    }
                 }
                 
                 //Find all gifts purchased by user in this pool and count them:
-                this.numGiftsPurchased = desiredItemRepository.findByPurchasedByUserId(userId).size();
+                this.numGiftsPurchased = (int) desiredItemRepository
+                        .findByPurchasedByUserId(userId)
+                        .spliterator()
+                        .getExactSizeIfKnown();
             }
         
             public Integer getPoolId() {
@@ -126,12 +135,12 @@ public class GiftPoolController {
                 return this.numUsers;
             }
         
-            public Integer getNumLists() {
-                return this.numLists;
+            public Integer getNumItems() {
+                return this.numItems;
             }
         
             public Integer getNumGiftsPurchased() {
-                return this.getNumGiftsPurchased;
+                return this.numGiftsPurchased;
             }
     }
 }
