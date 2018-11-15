@@ -46,7 +46,7 @@ function retrieveUserPools(userId) {
       table_string = table_string + "\n</table>";
       $("#dump").html(JSON.stringify(json));
       $("#gift_pool_table").html(table_string);
-      populatePoolMetaData(poolArray);
+      populatePoolMetaData(poolArray, userId);
     },
     error: function() {
       console.log("Oops, something went wrong when trying to load gift pool data.");
@@ -56,7 +56,7 @@ function retrieveUserPools(userId) {
   return result;
 }
 
-function populatePoolMetaData(poolIds) {
+function populatePoolMetaData(poolIds, userId) {
 	var metaString = 
   	"[" +
     "  { \"poolId\": \"1\", \"userId\": \"1\", \"numUsers\": \"12\", \"numItems\": \"23\", \"numGiftsPurchased\": \"4\" }," +
