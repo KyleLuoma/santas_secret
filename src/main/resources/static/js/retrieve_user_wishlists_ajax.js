@@ -1,8 +1,14 @@
+/**
+ * Update specified HTML element with wishlist tables describing a specific users wishlists
+ * @param userId Id of user for whom tables should be retrieved
+ * @param htmlElementId id tag of generated table destination element
+ **/
+
 function retrieveUserWishLists(userId, htmlElementId) {
 
-	var mockWishListJSON = 
-  	"[" +
-    "		{\"id\": \"1\", \"userId\": \"1\", \"title\": \"Kyle\'s Wishlist 1\", \"description\": \"My nice wishlist\"}," +
+    var mockWishListJSON = 
+    "[" +
+    "	{\"id\": \"1\", \"userId\": \"1\", \"title\": \"Kyle\'s Wishlist 1\", \"description\": \"My nice wishlist\"}," +
     "   {\"id\": \"1\", \"userId\": \"1\", \"title\": \"Kyle\'s Wishlist 2\", \"description\": \"My naughty wishlist\"}" +
     "]";
 
