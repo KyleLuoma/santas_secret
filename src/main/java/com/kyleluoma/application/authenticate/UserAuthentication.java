@@ -11,6 +11,9 @@ import org.apache.commons.codec.binary.Base64;
 
 public class UserAuthentication {
 
+    public static final Integer INVALID_USER_ID = -1;
+    public static final Integer REDIRECT_TO_LOGIN = -2;
+
     public static boolean authenticateUser(String userName, String plainTextPwd) {
         UserController userController = new UserController();
         User user = userController.getUserByUserName(userName);

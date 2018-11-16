@@ -12,6 +12,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import com.kyleluoma.application.repository.UserRepository;
 import com.kyleluoma.application.authenticate.UserAuthentication;
 import com.kyleluoma.application.model.User;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(path="/authenticate")
@@ -19,19 +24,30 @@ public class UserAuthenticationController {
     @Autowired
     private UserRepository userRepository;
     
-    @PostMapping(path="/login_attempt")
+    @RequestMapping(path="/login_attempt")
     public @ResponseBody String loginAttempt(@RequestParam String userName, @RequestParam String password) {
         HttpSession httpSession = fetchSession();
         User user = userRepository.findByUserName(userName);
-        if(user == null) { return "Username " + userName + " is not valid.") }; 
+
+        if(user == null) {
+            return "Username " + userName + " is not valid.";
+        }
+
         if(user.getHashedPassword().equals(UserAuthentication.hashPassword(password))) {
             httpSession.setAttribute("userId", user.getId());
+            System.out.println(user.getUserName() + " is logged in.");
+
+            return "forward:/user_dashboard.html";
         }
-        return "Username " + userName + " is logged in with user id " + user.getId();
+
+        fetchSession().setAttribute("userId", UserAuthentication.INVALID_USER_ID);
+        System.out.println("Invalid login or password!");
+        return "Invalid login or password.";
     }
     
     private HttpSession fetchSession() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        System.out.println("FetchSession fetched session ID " + attributes.getRequest().getSession(false).getId());
         return attributes.getRequest().getSession(false);
     }
 }

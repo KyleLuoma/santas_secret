@@ -107,11 +107,14 @@ public class GiftPoolController {
                 this.numItems = 0;             
                 Iterable<ItemPoolVisibility> itemsInPool = itemPoolVisibilityRepository.findByPoolId(poolId);
                 WishList userWishList = wishListRepository.findByUserId(userId);
-                Iterable<DesiredItem> userItems = desiredItemRepository.findByWishListID(userWishList.getId());
-                for(DesiredItem item : userItems) {
-                    for(ItemPoolVisibility poolItem : itemsInPool) {
-                        if (item.getId() == poolItem.getItemId()) {
-                            numItems++;
+                Iterable<DesiredItem> userItems;
+                if (userWishList != null) {
+                    userItems = desiredItemRepository.findByWishListID(userWishList.getId());
+                    for(DesiredItem item : userItems) {
+                        for(ItemPoolVisibility poolItem : itemsInPool) {
+                            if (item.getId() == poolItem.getItemId()) {
+                                numItems++;
+                            }
                         }
                     }
                 }

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 import java.io.IOException;
 
+import com.kyleluoma.application.authenticate.UserAuthentication;
+
 @Component
 @Order(1)
 /*@WebFilter(filterName = "UserAuthenticationFilter",
@@ -20,8 +22,6 @@ import java.io.IOException;
         @WebInitParam(name = "userAuth", value = "test")
 })*/
 public class UserAuthenticationFilter implements Filter {
-    
-    private final Integer INVALID_USER_ID = -1;
     
     public void init(FilterConfig config) throws ServletException {
     }
@@ -34,13 +34,17 @@ public class UserAuthenticationFilter implements Filter {
         HttpSession httpSession = httpRequest.getSession(true);
         
         System.out.println("This is the UserAuthenticationFilter saying hello world!");
+        System.out.println("User ID is: " + httpSession.getAttribute("userId"));
         System.out.println(httpSession.getId().toString());
+        System.out.println(((HttpServletRequest) request).getServletPath());
 
         //Check if userId attribute exists, or if it is flagged (-1) as invalid:
-        if(httpSession.getAttribute("userId") == null || httpSession.getAttribute("userId") == INVALID_USER_ID) {
-            httpSession.setAttribute("userId", -1);
-            System.out.println("Redirecting to login page");
-            httpResponse.sendRedirect("/login.html");
+        if(httpSession.getAttribute("userId") == null || httpSession.getAttribute("userId") == UserAuthentication.INVALID_USER_ID) {
+            if(!((HttpServletRequest) request).getServletPath().equals("/login.html")
+                    && !((HttpServletRequest) request).getServletPath().equals("/authenticate/login_attempt")) {
+                System.out.println("Redirecting to login page");
+                httpResponse.sendRedirect("/login.html");
+            }
         }
         chain.doFilter(request, response);
     }
