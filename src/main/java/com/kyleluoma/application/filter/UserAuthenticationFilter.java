@@ -46,6 +46,7 @@ public class UserAuthenticationFilter implements Filter {
                 httpResponse.sendRedirect("/login.html");
             }
         }
+
         chain.doFilter(request, response);
     }
         

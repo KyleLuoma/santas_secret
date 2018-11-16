@@ -15,8 +15,12 @@ import com.kyleluoma.application.model.User;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 @RequestMapping(path="/authenticate")
@@ -25,9 +29,14 @@ public class UserAuthenticationController {
     private UserRepository userRepository;
     
     @RequestMapping(path="/login_attempt")
-    public @ResponseBody String loginAttempt(@RequestParam String userName, @RequestParam String password) {
+    public @ResponseBody String loginAttempt(@RequestParam String userName,
+                                             @RequestParam String password,
+                                             ServletRequest request,
+                                             ServletResponse response) {
         HttpSession httpSession = fetchSession();
         User user = userRepository.findByUserName(userName);
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         if(user == null) {
             return "Username " + userName + " is not valid.";
@@ -36,6 +45,12 @@ public class UserAuthenticationController {
         if(user.getHashedPassword().equals(UserAuthentication.hashPassword(password))) {
             httpSession.setAttribute("userId", user.getId());
             System.out.println(user.getUserName() + " is logged in.");
+            try{
+                httpResponse.sendRedirect("/user_dashboard.html");
+            } catch(IOException ioe) {
+                ioe.printStackTrace();
+            }
+
 
             return "forward:/user_dashboard.html";
         }
