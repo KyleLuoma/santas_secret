@@ -8,7 +8,7 @@
  * @param userId user Id number associated with gift pools to appear in table
  * @returns {string}
  */
-function retrieveUserPools(userId) {
+function retrieveUserPools(userId, elemendId) {
 
   var result = "";
   
@@ -37,7 +37,7 @@ function retrieveUserPools(userId) {
       }
       table_string = table_string + "\n</table>";
       $("#dump").html(JSON.stringify(json));
-      $("#gift_pool_table").html(table_string);
+      $("#" + elemendId).html(table_string);
       populatePoolMetaData(poolArray, userId);
     },
     error: function() {
