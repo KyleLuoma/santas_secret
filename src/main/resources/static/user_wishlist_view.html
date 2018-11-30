@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheet/santas-secret.css">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="js/user_dashboard_ajax.js"></script>
+    <script src="js/retrieve_user_wishlists_ajax.js"></script>
+    <title>Santa's Secret - User dashboard</title>
+</head>
+
+<body>
+  <div id="dump" class="col-sm-12"></div>
+  
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <h3 class="center-all">
+      Current List: <span id="list_title_header"></span>
+    </h3>
+  </div>
+  <div class="col-sm-2"></div>
+  
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <p class="center-all" id="list_description_target">
+    This is where the list description will be loaded in a preceding AJAX query.
+    </p>
+  </div>
+  <div class="col-sm-2"></div>
+  
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8 dropdown center-all">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Select New Wishlist
+    </button>
+    <div class="dropdown-menu" arial-labelledby="dropdown_button" id="dropdown_menu_target">
+      <a class="dropdown-item" href="#">My Nice List</a>
+      <a class="dropdown-item" href="#">My Naughty List</a>
+    </div>
+  </div>
+  <div class="col-sm-2"></div>
+  
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8" id="item_list_target"></div>
+  <div class="col-sm-2"></div>
+  
+</body>
+<script>
+	retrieveWishListItems(1, "item_list_target");
+</script>
