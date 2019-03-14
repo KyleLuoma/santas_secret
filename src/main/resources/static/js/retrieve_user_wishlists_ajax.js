@@ -18,7 +18,7 @@ function retrieveUserWishLists(userId, htmlElementId) {
         //type: "POST",
         type: "GET",
         //data: {json: mockWishListJSON},
-        data: {userId: 3},
+        data: {userId: userId},
         datatype: "json",
         success: function(json) {
             var table_string = "<table class='table'><tr></tr><th>Title:</th><th>Description:</th></tr>\n";
@@ -37,7 +37,7 @@ function retrieveUserWishLists(userId, htmlElementId) {
                     "    <td><a href='\\list_view?listId=" + json[i].id + "'>VIEW</a></td>\n" +
                     "  </tr>";
             }
-            table_string += "\n</table>";
+            table_string += "\n</table> Lists loaded: " + json.length;
             $("#" + htmlElementId).html(table_string);
             $("#dump").html(JSON.stringify(json));
         },
