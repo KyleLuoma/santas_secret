@@ -106,18 +106,21 @@ public class GiftPoolController {
                 //Find all items owned by user userId and count them.
                 this.numItems = 0;             
                 Iterable<ItemPoolVisibility> itemsInPool = itemPoolVisibilityRepository.findByPoolId(poolId);
-                WishList userWishList = wishListRepository.findByUserId(userId);
+                Iterable<WishList> userWishLists = wishListRepository.findByUserId(userId);
                 Iterable<DesiredItem> userItems;
-                if (userWishList != null) {
-                    userItems = desiredItemRepository.findByWishListID(userWishList.getId());
-                    for(DesiredItem item : userItems) {
-                        for(ItemPoolVisibility poolItem : itemsInPool) {
-                            if (item.getId() == poolItem.getItemId()) {
-                                numItems++;
+                for(WishList userWishList : userWishLists) {
+                    if (userWishList != null) {
+                        userItems = desiredItemRepository.findByWishListID(userWishList.getId());
+                        for(DesiredItem item : userItems) {
+                            for(ItemPoolVisibility poolItem : itemsInPool) {
+                                if (item.getId() == poolItem.getItemId()) {
+                                    numItems++;
+                                }
                             }
                         }
                     }
                 }
+                
                 
                 //Find all gifts purchased by user in this pool and count them:
                 this.numGiftsPurchased = (int) desiredItemRepository

@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface WishListRepository extends CrudRepository<WishList, Integer> {
     
-    WishList findByUserId(Integer userId);
+    Iterable<WishList> findByUserId(Integer userId);
     Iterable<WishList> findByTitle(String title);
 
 }

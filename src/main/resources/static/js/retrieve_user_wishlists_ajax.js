@@ -42,6 +42,6 @@ function retrieveUserWishLists(userId, htmlElementId) {
             $("#dump").html(JSON.stringify(json));
         },
         error: {
-      }
-  })
+        }
+    })
 }

@@ -34,7 +34,7 @@ public class WishListController {
     }
     
     @GetMapping(path="/by_user_id")
-    public @ResponseBody WishList getWishListByUserId(Integer userId) {
+    public @ResponseBody Iterable<WishList> getWishListsByUserId(Integer userId) {
         return wishListRepository.findByUserId(userId);
     }
     

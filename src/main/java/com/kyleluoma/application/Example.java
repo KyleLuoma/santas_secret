@@ -4,13 +4,14 @@ import java.util.Arrays;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import com.kyleluoma.application.authenticate.UserAuthentication;
 
 
-
+@EnableAutoConfiguration
 @SpringBootApplication
 public class Example {
 
@@ -29,14 +30,6 @@ public class Example {
             for (String beanName : beanNames) {
                 System.out.println(beanName);
             }
-
-            System.out.println(UserAuthentication.hashPassword("password"));
-            System.out.println(UserAuthentication.hashPassword("test"));
-            System.out.println(UserAuthentication.hashPassword("asdfav"));
-            System.out.println(UserAuthentication.hashPassword("w3a4tgrgvazsdf"));
-            System.out.println(UserAuthentication.hashPassword("asdf4qa67yqe57"));
-
-
         };
     }
 }

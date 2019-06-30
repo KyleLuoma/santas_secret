@@ -33,10 +33,10 @@ public class UserAuthenticationFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession httpSession = httpRequest.getSession(true);
         
-        System.out.println("This is the UserAuthenticationFilter saying hello world!");
-        System.out.println("User ID is: " + httpSession.getAttribute("userId"));
-        System.out.println(httpSession.getId().toString());
-        System.out.println(((HttpServletRequest) request).getServletPath());
+        System.out.println("---running com.kyleluoma.application.filter.UserAuthenticationFilter---");
+        System.out.println("User ID: " + httpSession.getAttribute("userId"));
+        System.out.println("Session ID: " + httpSession.getId().toString());
+        System.out.println("Request path: " + ((HttpServletRequest) request).getServletPath());
 
         //Check if userId attribute exists, or if it is flagged (-1) as invalid:
         if(httpSession.getAttribute("userId") == null || httpSession.getAttribute("userId") == UserAuthentication.INVALID_USER_ID) {
